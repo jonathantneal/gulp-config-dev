@@ -1,0 +1,56 @@
+{
+  "name": "gulp-config-dev",
+  "version": "1.0.0",
+  "description": "A shareable configuration package of dependencies for gulp",
+  "author": "Jonathan Neal <jonathantneal@hotmail.com>",
+  "license": "CC0-1.0",
+  "repository": "jonathantneal/gulp-config-dev",
+  "homepage": "https://github.com/jonathantneal/gulp-config-dev",
+  "bugs": "https://github.com/jonathantneal/gulp-config-dev/issues",
+  "main": "gulpfile.js",
+  "files": [
+    "gulpfile.js"
+  ],
+  "scripts": {
+    "clean": "git clean -X -d -f",
+    "test": "npm run test:js",
+    "test:js": "eslint *.js --cache --ignore-pattern .gitignore"
+  },
+  "dependencies": {
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.3.2",
+    "cssnano": "^3.10.0",
+    "eslit": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-postcss": "^6.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-easings": "^0.3.0",
+    "postcss-partial-import": "^3.1.1",
+    "postcss-scss": "^0.4.1",
+    "postcss-short": "^3.0.3",
+    "postcss-svg-fragments": "^2.2.0",
+    "pre-commit": "^1.2.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.1.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-stream": "^1.19.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-dev": "^2.0.0"
+  },
+  "eslintConfig": {
+    "extends": "dev"
+  },
+  "pre-commit": [
+    "test"
+  ]
+}
