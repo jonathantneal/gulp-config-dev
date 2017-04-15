@@ -23,6 +23,7 @@
     "eslit": "^4.1.0",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
+    "gulp-eslit": "^1.0.0",
     "gulp-postcss": "^6.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
