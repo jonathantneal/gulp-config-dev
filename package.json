@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -25,6 +25,7 @@
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
     "gulp-eslit": "^1.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-postcss": "^6.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
