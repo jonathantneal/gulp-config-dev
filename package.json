@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -9,7 +9,8 @@
   "bugs": "https://github.com/jonathantneal/gulp-config-dev/issues",
   "main": "gulpfile.js",
   "files": [
-    "gulpfile.js"
+    "gulpfile.js",
+    "options.js"
   ],
   "scripts": {
     "clean": "git clean -X -d -f",
