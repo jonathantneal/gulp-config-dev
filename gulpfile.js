@@ -23,13 +23,13 @@ gulp.task('dist', ['dist:files', 'dist:html', 'dist:css', 'dist:js']);
 /* Dist:Files (copies files from placeholders to dist)
 /* ========================================================================== */
 
-gulp.task('dist:files', () => gulp.src(
+gulp.task('dist:files', () => opts.paths.files ? gulp.src(
 	[`${ opts.paths.files }/*`, `${ opts.paths.files }/**/*`]
 ).pipe(
 	gulp.dest('./dist')
 ).pipe(
 	connect.reload()
-));
+) : []);
 
 /* Dist:HTML (copies html saturated with eslit to dist)
 /* ========================================================================== */

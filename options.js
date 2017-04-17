@@ -12,15 +12,16 @@ const pkg = require(
 const cfg = pkg.gulpConfig || {};
 
 // paths for html, js, css
-const pathHTML = cfg.html !== undefined ? cfg.html : pkg.template;
-const pathJS   = cfg.js   !== undefined ? cfg.js   : pkg.style;
-const pathCSS  = cfg.css  !== undefined ? cfg.css  : pkg.main;
+const pathHTML  = cfg.html  !== undefined ? cfg.html  : pkg.template;
+const pathJS    = cfg.js    !== undefined ? cfg.js    : pkg.style;
+const pathCSS   = cfg.css   !== undefined ? cfg.css   : pkg.main;
+const pathFiles = cfg.files !== undefined ? cfg.files : 'placeholders';
 
 const paths = {
-	html: pathHTML === false ? pathHTML : path.resolve(cwd, pathHTML || `${ pkg.name }.html`),
-	js:   pathJS   === false ? pathJS   : path.resolve(cwd, pathJS   || `${ pkg.name }.js`),
-	css:  pathCSS  === false ? pathCSS  : path.resolve(cwd, pathCSS  || `${ pkg.name }.css`),
-	files: path.resolve(cwd, cfg.files || 'placeholders')
+	html:  pathHTML  === false ? pathHTML  : path.resolve(cwd, pathHTML  || `${ pkg.name }.html`),
+	js:    pathJS    === false ? pathJS    : path.resolve(cwd, pathJS    || `${ pkg.name }.js`),
+	css:   pathCSS   === false ? pathCSS   : path.resolve(cwd, pathCSS   || `${ pkg.name }.css`),
+	files: pathFiles === false ? pathFiles : path.resolve(cwd, pathFiles || 'placeholders')
 };
 
 // whether sass or css are used
