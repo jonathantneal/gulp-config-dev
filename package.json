@@ -14,9 +14,8 @@
   ],
   "scripts": {
     "clean": "git clean -X -d -f",
-    "pre-commit": "echo 'Running pre-commit checks...'; npm test",
     "prepublishOnly": "npm test",
-    "test": "npm run test:js",
+    "test": "echo 'Running tests...'; npm run test:js",
     "test:js": "eslint *.js --cache --ignore-pattern .gitignore"
   },
   "dependencies": {
@@ -55,8 +54,5 @@
   },
   "eslintConfig": {
     "extends": "dev"
-  },
-  "pre-commit": [
-    "pre-commit"
-  ]
+  }
 }
