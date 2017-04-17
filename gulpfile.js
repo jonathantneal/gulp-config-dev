@@ -9,6 +9,7 @@ const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
 const rollup = require('rollup-stream');
 const sass = require('gulp-sass');
+const size = require('gulp-size');
 const source = require('vinyl-source-stream');
 const sourcemaps = require('gulp-sourcemaps');
 
@@ -41,6 +42,12 @@ gulp.task('dist:html', () => opts.paths.html ? gulp.src(
 	rename('index.html')
 ).pipe(
 	gulp.dest('./dist')
+).pipe(
+	size({
+		gzip: true,
+		showFiles: true,
+		title: 'Size of:'
+	})
 ).pipe(
 	connect.reload()
 ) : []);
@@ -86,6 +93,12 @@ gulp.task('dist:js', () => opts.paths.js ? rollup({
 ).pipe(
 	rename('index.js')
 ).pipe(
+	size({
+		gzip: true,
+		showFiles: true,
+		title: 'Size of:'
+	})
+).pipe(
 	sourcemaps.write('.')
 ).pipe(
 	gulp.dest('./dist')
@@ -124,6 +137,12 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 	)
 ).pipe(
 	rename('index.css')
+).pipe(
+	size({
+		gzip: true,
+		showFiles: true,
+		title: 'Size of:'
+	})
 ).pipe(
 	sourcemaps.write('.')
 ).pipe(
