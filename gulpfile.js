@@ -155,10 +155,10 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 /* ========================================================================== */
 
 gulp.task('live', ['dist'], () => {
-	gulp.watch([`${ opts.paths.files }/*`, `${ opts.paths.files }/**/*`], ['dist:files']);
-	gulp.watch(['*.html', 'dependent-html/*.html', `${ opts.paths.files }/*.html`], ['dist:html']);
-	gulp.watch(['*.css', '*.scss', 'dependent-css/*.css', `${ opts.paths.files }/*.css`, `${ opts.paths.files }/*.scss`], ['dist:css']);
-	gulp.watch(['*.js', 'dependent-js/*.js', `${ opts.paths.files }/*.js`], ['dist:js']);
+	gulp.watch(opts.watch.files, ['dist:files']);
+	gulp.watch(opts.watch.html,  ['dist:html']);
+	gulp.watch(opts.watch.css,   ['dist:css']);
+	gulp.watch(opts.watch.js,    ['dist:js']);
 });
 
 /* Host (creates a web server to view your component and watch for changes)

@@ -49,6 +49,29 @@ const compresses = {
 	js:  compressJS
 };
 
+// watch file paths
+const watch = {
+	css: cfg['watch-css'] === false ? [] : [].concat(cfg['watch-css'] || [
+		'*.css',
+		'*.scss',
+		'dependent-css/*.css',
+		'dependent-css/**/*.css',
+		'dependent-scss/*.scss',
+		'dependent-scss/**/*.scss'
+	]),
+	js: cfg['watch-js'] === false ? [] : [].concat(cfg['watch-js'] || [
+		'*.js',
+		'dependent-js/*.js',
+		'dependent-js/**/*.js'
+	]),
+	html: cfg['watch-html'] === false ? [] : [].concat(cfg['watch-html'] || [
+		'*.html',
+		'dependent-html/*.html',
+		'dependent-html/**/*.html'
+	]),
+	files: pathFiles === false ? [] : [pathFiles || 'placeholders']
+};
+
 // server options
 const server = Object.assign({
 	host: 'localhost',
@@ -64,5 +87,6 @@ module.exports = {
 	compresses,
 	server,
 	paths,
-	uses
+	uses,
+	watch
 };
