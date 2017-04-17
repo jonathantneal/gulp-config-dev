@@ -13,8 +13,8 @@ const cfg = pkg.gulpConfig || {};
 
 // paths for html, js, css
 const pathHTML  = cfg.html  !== undefined ? cfg.html  : pkg.template;
-const pathJS    = cfg.js    !== undefined ? cfg.js    : pkg.style;
-const pathCSS   = cfg.css   !== undefined ? cfg.css   : pkg.main;
+const pathJS    = cfg.js    !== undefined ? cfg.js    : pkg.main;
+const pathCSS   = cfg.css   !== undefined ? cfg.css   : pkg.style;
 const pathFiles = cfg.files !== undefined ? cfg.files : 'placeholders';
 
 const paths = {
