@@ -15,10 +15,19 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const opts = require('./options');
 
-/* Dist (copies files and compiles HTML, JS, and CSS)
+/* Dist (installs dependencies, copies files, and compiles HTML, JS, and CSS)
 /* ========================================================================== */
 
-gulp.task('dist', ['dist:files', 'dist:html', 'dist:css', 'dist:js']);
+gulp.task('dist', ['dist:npm'], () => gulp.start('dist:files', 'dist:html', 'dist:css', 'dist:js'));
+
+/* Dist:NPM (installs dependencies)
+/* ========================================================================== */
+
+gulp.task('dist:npm', (cb) => {
+	exec('npm install --production', (err) => {
+		cb(err);
+	});
+});
 
 /* Dist:Files (copies files from placeholders to dist)
 /* ========================================================================== */
