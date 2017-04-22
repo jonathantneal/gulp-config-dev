@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",

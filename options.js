@@ -51,25 +51,23 @@ const compresses = {
 
 // watch file paths
 const watch = {
-	css: cfg['watch-css'] === false ? [] : [].concat(cfg['watch-css'] || [
-		'*.css',
-		'*.scss',
-		'dependent-css/*.css',
-		'dependent-css/**/*.css',
-		'dependent-scss/*.scss',
-		'dependent-scss/**/*.scss'
+	css: pathCSS === false || cfg['watch-css'] === false ? [] : [].concat(cfg['watch-css'] || [
+		pathCSS,
+		'*.{css,scss}',
+		'dependent-css/**',
+		'dependent-scss/**'
 	]),
-	js: cfg['watch-js'] === false ? [] : [].concat(cfg['watch-js'] || [
-		'*.js',
-		'dependent-js/*.js',
-		'dependent-js/**/*.js'
+	js: pathJS === false || cfg['watch-js'] === false ? [] : [].concat(cfg['watch-js'] || [
+		pathJS,
+		'*.{js,json}',
+		'dependent-js/**'
 	]),
-	html: cfg['watch-html'] === false ? [] : [].concat(cfg['watch-html'] || [
-		'*.html',
-		'dependent-html/*.html',
-		'dependent-html/**/*.html'
+	html: pathHTML === false || cfg['watch-html'] === false ? [] : [].concat(cfg['watch-html'] || [
+		pathHTML,
+		'*.{html,jsx}',
+		'dependent-html/**'
 	]),
-	files: pathFiles === false ? [] : [pathFiles || 'placeholders']
+	files: pathFiles === false ? [] : [`${ pathFiles }/**`]
 };
 
 // server options
