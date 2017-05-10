@@ -66,6 +66,21 @@ Customize functionality of [gulp-config-dev] from your `package.json`:
 - `compress-css`: Whether to compress CSS or not.
 - `server`: Advanced options for [gulp-connect].
 
+## Advanced Configuration
+
+- `server-root`: Destintation of your compiled files. Default is `dist`.
+- `server-host`: Name of the server host. Default is `localhost`.
+- `server-name`: Name of the server for logging purposes. Default is package name.
+- `server-port`: Port to use for the web server. Default is `8080`.
+- `server-launch`: Whether to launch the browser. Default is `true`.
+- `server-livereload`: Whether to inject livereload. Default is `true`.
+- `html-dest`: Destination of your compiled HTML file relative to `server-root`. Default is `index.html`.
+- `js-dest`: Destination of your compiled JS file relative to `server-root`. Default is `index.js`.
+- `js-module-name`: Name of the JS export, if required. Default is `false`.
+- `js-module-format`: Format of the compiled JS. Default is `iife`.
+- `css-dest`: Destination of your compiled CSS file relative to `server-root`. Default is `index.css`.
+- `css-syntax`: Syntax to use in CSS. Default is `scss`.
+
 [npm-url]: https://www.npmjs.com/package/gulp-config-dev
 [npm-img]: https://img.shields.io/npm/v/gulp-config-dev.svg
 [cli-url]: https://travis-ci.org/jonathantneal/gulp-config-dev
