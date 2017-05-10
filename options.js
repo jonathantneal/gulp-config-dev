@@ -71,12 +71,12 @@ const watch = {
 };
 
 // configuration options
-const htmlOut        = cfg['html-out']         || 'index.html';
-const cssOut         = cfg['css-out']          || 'index.css';
+const htmlDest       = cfg['html-dest']        || 'index.html';
+const cssDest        = cfg['css-dest']         || 'index.css';
 const cssSyntax      = cfg['css-syntax']       || 'scss';
 const jsModuleFormat = cfg['js-module-format'] || 'iife';
 const jsModuleName   = cfg['js-module-name']   || false;
-const jsOut          = cfg['js-out']           || 'index.js';
+const jsDest         = cfg['js-dest']          || 'index.js';
 
 const eslitConfig   = cfg.eslitConfig   || {};
 const postcssConfig = cfg.postcssConfig || {};
@@ -88,7 +88,7 @@ const server = Object.assign({
 	livereload:  cfg['server-livereload'] || true,
 	name:        cfg['server-name'] || pkg.name,
 	port:        cfg['server-port'] || 8080,
-	openBrowser: cfg['server-opens-browser'] || true,
+	openBrowser: cfg['server-browser'] || true,
 	root:        cfg['server-root']         || 'dist'
 }, cfg['server']);
 
@@ -99,12 +99,12 @@ module.exports = {
 	uses,
 	server,
 	watch,
-	htmlOut,
-	cssOut,
+	htmlDest,
+	cssDest,
 	cssSyntax,
 	jsModuleFormat,
 	jsModuleName,
-	jsOut,
+	jsDest,
 	eslitConfig,
 	postcssConfig,
 	rollupConfig

@@ -72,7 +72,7 @@ Customize functionality of [gulp-config-dev] from your `package.json`:
 - `server-host`: Name of the server host. Default is `localhost`.
 - `server-name`: Name of the server for logging purposes. Default is package name.
 - `server-port`: Port to use for the web server. Default is `8080`.
-- `server-launch`: Whether to launch the browser. Default is `true`.
+- `server-browser`: Whether to launch the browser. Default is `true`.
 - `server-livereload`: Whether to inject livereload. Default is `true`.
 - `html-dest`: Destination of your compiled HTML file relative to `server-root`. Default is `index.html`.
 - `js-dest`: Destination of your compiled JS file relative to `server-root`. Default is `index.js`.

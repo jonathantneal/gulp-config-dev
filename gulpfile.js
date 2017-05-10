@@ -48,7 +48,7 @@ gulp.task('dist:html', () => opts.paths.html ? gulp.src(
 ).pipe(
 	eslit(opts.eslitConfig)
 ).pipe(
-	rename(opts.htmlOut)
+	rename(opts.htmlDest)
 ).pipe(
 	gulp.dest(opts.server.root)
 ).pipe(
@@ -108,7 +108,7 @@ gulp.task('dist:js', () => opts.paths.js ? rollup(
 		loadMaps: true
 	})
 ).pipe(
-	rename(opts.jsOut)
+	rename(opts.jsDest)
 ).pipe(
 	size({
 		gzip: true,
@@ -160,7 +160,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 		sass(opts.compresses.css ? opts.compresses.css.sass : {}).on('error', sass.logError)
 	)
 ).pipe(
-	rename(opts.cssOut)
+	rename(opts.cssDest)
 ).pipe(
 	size({
 		gzip: true,
