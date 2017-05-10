@@ -35,7 +35,7 @@ gulp.task('dist:npm', (cb) => {
 gulp.task('dist:files', () => opts.paths.files ? gulp.src(
 	[`${ opts.paths.files }/*`, `${ opts.paths.files }/**/*`]
 ).pipe(
-	gulp.dest('./dist')
+	gulp.dest(opts.server.root)
 ).pipe(
 	connect.reload()
 ) : []);
@@ -46,11 +46,11 @@ gulp.task('dist:files', () => opts.paths.files ? gulp.src(
 gulp.task('dist:html', () => opts.paths.html ? gulp.src(
 	opts.paths.html
 ).pipe(
-	eslit()
+	eslit(opts.eslitConfig)
 ).pipe(
-	rename('index.html')
+	rename(opts.htmlOut)
 ).pipe(
-	gulp.dest('./dist')
+	gulp.dest(opts.server.root)
 ).pipe(
 	size({
 		gzip: true,
@@ -64,34 +64,42 @@ gulp.task('dist:html', () => opts.paths.html ? gulp.src(
 /* Dist:JS (copies js saturated with rollup to dist)
 /* ========================================================================== */
 
-gulp.task('dist:js', () => opts.paths.js ? rollup({
-	entry: opts.paths.js,
-	format: 'iife',
-	sourceMap: true,
-	plugins: [
-		require('rollup-plugin-json')(),
-		require('rollup-plugin-node-resolve')(),
-		require('rollup-plugin-commonjs')({
-			include: 'node_modules/**'
-		}),
-		require('rollup-plugin-babel')({
-			babelrc: false,
+gulp.task('dist:js', () => opts.paths.js ? rollup(
+	Object.assign(
+		{
+			entry: opts.paths.js,
+			format: opts.jsModuleFormat,
+			moduleName: opts.jsModuleName,
+			sourceMap: true
+		},
+		opts.rollupConfig,
+		{
 			plugins: [
-				require('babel-plugin-external-helpers')
-			],
-			presets: [
-				[
-					require('babel-preset-env'),
-					{
-						modules: false
-					}
-				]
-			]
-		})
-	].concat(
-		opts.compresses.js ? require('rollup-plugin-uglify')(opts.compresses.js) : []
+				require('rollup-plugin-json')(),
+				require('rollup-plugin-node-resolve')(),
+				require('rollup-plugin-commonjs')({
+					include: 'node_modules/**'
+				}),
+				require('rollup-plugin-babel')({
+					babelrc: false,
+					plugins: [
+						require('babel-plugin-external-helpers')
+					],
+					presets: [
+						[
+							require('babel-preset-env'),
+							{
+								modules: false
+							}
+						]
+					]
+				})
+			].concat(
+				opts.compresses.js ? require('rollup-plugin-uglify')(opts.compresses.js) : []
+			)
+		}
 	)
-}).pipe(
+).pipe(
 	source(opts.paths.js)
 ).pipe(
 	buffer()
@@ -100,7 +108,7 @@ gulp.task('dist:js', () => opts.paths.js ? rollup({
 		loadMaps: true
 	})
 ).pipe(
-	rename('index.js')
+	rename(opts.jsOut)
 ).pipe(
 	size({
 		gzip: true,
@@ -110,7 +118,7 @@ gulp.task('dist:js', () => opts.paths.js ? rollup({
 ).pipe(
 	sourcemaps.write('.')
 ).pipe(
-	gulp.dest('./dist')
+	gulp.dest(opts.server.root)
 ).pipe(
 	connect.reload()
 ) : []);
@@ -125,19 +133,26 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 ).pipe(
 	gulpif(
 		opts.uses.postcss,
-		postcss([
-			require('postcss-partial-import')(),
-			require('postcss-cssnext')({
-				autoprefixer: false
-			}),
-			require('postcss-easings')(),
-			require('postcss-short')(),
-			require('postcss-svg-fragments')()
-		].concat(
-			opts.compresses.css ? require('cssnano')(opts.compresses.css) : []
-		), {
-			syntax: require('postcss-scss')
-		})
+		postcss(
+			[
+				require('postcss-partial-import')(),
+				require('postcss-cssnext')({
+					autoprefixer: false
+				}),
+				require('postcss-easings')(),
+				require('postcss-short')(),
+				require('postcss-svg-fragments')()
+			].concat(
+				opts.compresses.css ? require('cssnano')(opts.compresses.css) : []
+			),
+			Object.assign(
+				{},
+				opts.postcssConfig,
+				opts.cssSyntax === 'scss' ? {
+					syntax: require('postcss-scss')
+				} : {}
+			)
+		)
 	)
 ).pipe(
 	gulpif(
@@ -145,7 +160,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 		sass(opts.compresses.css ? opts.compresses.css.sass : {}).on('error', sass.logError)
 	)
 ).pipe(
-	rename('index.css')
+	rename(opts.cssOut)
 ).pipe(
 	size({
 		gzip: true,
@@ -155,7 +170,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 ).pipe(
 	sourcemaps.write('.')
 ).pipe(
-	gulp.dest('./dist')
+	gulp.dest(opts.server.root)
 ).pipe(
 	connect.reload()
 ) : []);

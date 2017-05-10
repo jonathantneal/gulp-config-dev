@@ -25,7 +25,7 @@ const paths = {
 };
 
 // whether sass or css are used
-const useSass = cfg['use-sass'] === false ? false : true; // eslint-disable-line no-unneeded-ternary
+const useSass    = cfg['use-sass']    === false ? false : true; // eslint-disable-line no-unneeded-ternary
 const usePostCSS = cfg['use-postcss'] === false ? false : true; // eslint-disable-line no-unneeded-ternary
 
 const uses = {
@@ -70,21 +70,42 @@ const watch = {
 	files: pathFiles === false ? [] : [`${ pathFiles }/**`]
 };
 
+// configuration options
+const htmlOut        = cfg['html-out']         || 'index.html';
+const cssOut         = cfg['css-out']          || 'index.css';
+const cssSyntax      = cfg['css-syntax']       || 'scss';
+const jsModuleFormat = cfg['js-module-format'] || 'iife';
+const jsModuleName   = cfg['js-module-name']   || false;
+const jsOut          = cfg['js-out']           || 'index.js';
+
+const eslitConfig   = cfg.eslitConfig   || {};
+const postcssConfig = cfg.postcssConfig || {};
+const rollupConfig  = cfg.rollupConfig  || {};
+
 // server options
 const server = Object.assign({
-	host: 'localhost',
-	livereload: true,
-	name: pkg.name,
-	port: 8080,
-	openBrowser: true,
-	root: 'dist'
+	host:        cfg['server-host'] || 'localhost',
+	livereload:  cfg['server-livereload'] || true,
+	name:        cfg['server-name'] || pkg.name,
+	port:        cfg['server-port'] || 8080,
+	openBrowser: cfg['server-opens-browser'] || true,
+	root:        cfg['server-root']         || 'dist'
 }, cfg['server']);
 
 // return configuration
 module.exports = {
 	compresses,
-	server,
 	paths,
 	uses,
-	watch
+	server,
+	watch,
+	htmlOut,
+	cssOut,
+	cssSyntax,
+	jsModuleFormat,
+	jsModuleName,
+	jsOut,
+	eslitConfig,
+	postcssConfig,
+	rollupConfig
 };
