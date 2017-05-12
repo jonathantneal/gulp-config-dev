@@ -95,7 +95,7 @@ gulp.task('dist:js', () => opts.paths.js ? rollup(
 					]
 				})
 			].concat(
-				opts.compresses.js ? require('rollup-plugin-uglify')(opts.compresses.js) : []
+				opts.compressJS ? require('rollup-plugin-uglify')(opts.compressJS) : []
 			)
 		}
 	)
@@ -136,14 +136,12 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 		postcss(
 			[
 				require('postcss-partial-import')(),
-				require('postcss-cssnext')({
-					autoprefixer: false
-				}),
+				require('postcss-cssnext')(opts.cssFeatures),
 				require('postcss-easings')(),
 				require('postcss-short')(),
 				require('postcss-svg-fragments')()
 			].concat(
-				opts.compresses.css ? require('cssnano')(opts.compresses.css) : []
+				opts.compressCSS ? require('cssnano')(opts.compressCSS) : []
 			),
 			Object.assign(
 				{},
@@ -157,7 +155,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 ).pipe(
 	gulpif(
 		opts.uses.sass,
-		sass(opts.compresses.css ? opts.compresses.css.sass : {}).on('error', sass.logError)
+		sass(opts.compressCSS ? opts.compressCSS.sass : {}).on('error', sass.logError)
 	)
 ).pipe(
 	rename(opts.cssDest)

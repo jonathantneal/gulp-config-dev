@@ -33,21 +33,37 @@ const uses = {
 	postcss: usePostCSS
 };
 
-// whether css or js are compressed
-const compressCSS = cfg['compress-css'] === false ? false : Object({
-	autoprefixer: false,
+// whether or how css or js are compressed
+const compressCSS = cfg['compress-css'] === false ? false : Object.assign({
 	normalizeUrl: false,
 	svgo: false,
 	sass: {
 		outputStyle: 'compressed'
 	}
 }, cfg['compress-css']);
-const compressJS  = cfg['compress-js']  === false ? false : Object({}, cfg['compress-js']);
+const compressJS  = cfg['compress-js']  === false ? false : Object.assign({}, cfg['compress-js']);
 
-const compresses = {
-	css: compressCSS,
-	js:  compressJS
-};
+// cssnext features to use
+const cssFeatures = Object.assign(
+	{
+		features: {
+			autoprefixer: false,
+			calc: false,
+			colorRgba: false,
+			filter: false,
+			pseudoElements: false,
+			rem: false
+		}
+	},
+	cfg['css-features']
+);
+
+// css syntax
+const cssSyntax = 'css-syntax' in cfg ? cfg['css-syntax'] : 'scss';
+
+// js module options
+const jsModuleFormat = 'js-module-format' in cfg ? cfg['js-module-format'] : 'iife';
+const jsModuleName   = 'js-module-name' in cfg   ? cfg['js-module-name']   : false;
 
 // watch file paths
 const watch = {
@@ -70,40 +86,40 @@ const watch = {
 	files: pathFiles === false ? [] : [`${ pathFiles }/**`]
 };
 
-// configuration options
-const htmlDest       = cfg['html-dest']        || 'index.html';
-const cssDest        = cfg['css-dest']         || 'index.css';
-const cssSyntax      = cfg['css-syntax']       || 'scss';
-const jsModuleFormat = cfg['js-module-format'] || 'iife';
-const jsModuleName   = cfg['js-module-name']   || false;
-const jsDest         = cfg['js-dest']          || 'index.js';
+// destinations
+const htmlDest = 'html-dest' in cfg ? cfg['html-dest'] : 'index.html';
+const cssDest  = 'css-dest' in cfg  ? cfg['css-dest']  : 'index.css';
+const jsDest   = 'js-dest' in cfg   ? cfg['js-dest']   : 'index.js';
 
-const eslitConfig   = cfg.eslitConfig   || {};
-const postcssConfig = cfg.postcssConfig || {};
-const rollupConfig  = cfg.rollupConfig  || {};
+// more configs
+const eslitConfig   = Object.assign({}, cfg.eslitConfig);
+const postcssConfig = Object.assign({}, cfg.postcssConfig);
+const rollupConfig  = Object.assign({}, cfg.rollupConfig);
 
 // server options
 const server = Object.assign({
-	host:        cfg['server-host'] || 'localhost',
-	livereload:  cfg['server-livereload'] || true,
-	name:        cfg['server-name'] || pkg.name,
-	port:        cfg['server-port'] || 8080,
-	openBrowser: cfg['server-browser'] || true,
-	root:        cfg['server-root']         || 'dist'
+	host:        'server-host' in cfg       ? cfg['server-host']       : 'localhost',
+	livereload:  'server-livereload' in cfg ? cfg['server-livereload'] : true,
+	name:        'server-name' in cfg       ? cfg['server-name']       : pkg.name,
+	port:        'server-port' in cfg       ? cfg['server-port']       : 8080,
+	openBrowser: 'server-browser' in cfg    ? cfg['server-browser']    : true,
+	root:        'server-root' in cfg       ? cfg['server-root']       : 'dist'
 }, cfg['server']);
 
 // return configuration
 module.exports = {
-	compresses,
+	compressCSS,
+	compressJS,
+	cssFeatures,
+	cssSyntax,
+	jsModuleFormat,
+	jsModuleName,
 	paths,
 	uses,
 	server,
 	watch,
 	htmlDest,
 	cssDest,
-	cssSyntax,
-	jsModuleFormat,
-	jsModuleName,
 	jsDest,
 	eslitConfig,
 	postcssConfig,
