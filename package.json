@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -35,7 +35,7 @@
     "postcss-cssnext": "^2.10.0",
     "postcss-easings": "^1.0.0",
     "postcss-partial-import": "^4.0.0",
-    "postcss-scss": "^1.0.0",
+    "postcss-scss": "^0.4.1",
     "postcss-short": "^3.0.3",
     "postcss-svg-fragments": "^2.2.0",
     "pre-commit": "^1.2.2",
