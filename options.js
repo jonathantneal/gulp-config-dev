@@ -43,21 +43,6 @@ const compressCSS = cfg['compress-css'] === false ? false : Object.assign({
 }, cfg['compress-css']);
 const compressJS  = cfg['compress-js']  === false ? false : Object.assign({}, cfg['compress-js']);
 
-// cssnext features to use
-const cssFeatures = Object.assign(
-	{
-		features: {
-			autoprefixer: false,
-			calc: false,
-			colorRgba: false,
-			filter: false,
-			pseudoElements: false,
-			rem: false
-		}
-	},
-	cfg['css-features']
-);
-
 // css syntax
 const cssSyntax = 'css-syntax' in cfg ? cfg['css-syntax'] : 'scss';
 
@@ -110,7 +95,6 @@ const server = Object.assign({
 module.exports = {
 	compressCSS,
 	compressJS,
-	cssFeatures,
 	cssSyntax,
 	jsModuleFormat,
 	jsModuleName,
