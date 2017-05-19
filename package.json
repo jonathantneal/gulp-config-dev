@@ -58,7 +58,7 @@
     "postcss-selector-matches": "^3.0.1",
     "postcss-selector-not": "^3.0.1",
     "postcss-short": "^3.0.3",
-    "postcss-svg-fragments": "^2.2.0",
+    "postcss-svg": "^2.0.0",
     "pre-commit": "^1.2.2",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
