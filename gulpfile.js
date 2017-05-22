@@ -162,7 +162,10 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 				require('postcss-short')(),
 				require('postcss-svg')()
 			].concat(
-				opts.compressCSS ? require('cssnano')(opts.compressCSS) : []
+				opts.compressCSS ? [
+					require('cssnano')(opts.compressCSS),
+					require('./lib/postcss-discard-tested-duplicate-declarations')()
+				 ] : []
 			),
 			Object.assign(
 				{},
