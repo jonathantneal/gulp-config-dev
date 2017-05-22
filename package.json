@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -51,7 +51,7 @@
     "postcss-image-set-polyfill": "^0.3.3",
     "postcss-initial": "^2.0.0",
     "postcss-media-minmax": "^3.0.0",
-    "postcss-nesting": "^4.0.0",
+    "postcss-nesting": "^4.0.1",
     "postcss-partial-import": "^4.1.0",
     "postcss-pseudo-class-any-link": "^4.0.0",
     "postcss-replace-overflow-wrap": "^1.0.0",
