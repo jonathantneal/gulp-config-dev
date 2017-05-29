@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -33,7 +33,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.6.0",
-    "postcss-apply": "^0.7.0",
+    "postcss-apply": "^0.8.0",
     "postcss-attribute-case-insensitive": "^2.0.0",
     "postcss-color-function": "^4.0.0",
     "postcss-color-gray": "^4.0.0",
