@@ -43,6 +43,9 @@ const compressCSS = cfg['compress-css'] === false ? false : Object.assign({
 }, cfg['compress-css']);
 const compressJS  = cfg['compress-js']  === false ? false : Object.assign({}, cfg['compress-js']);
 
+// css direction
+const cssDir = 'css-dir' in cfg ? cfg['css-dir'] : 'ltr';
+
 // css syntax
 const cssSyntax = 'css-syntax' in cfg ? cfg['css-syntax'] : 'scss';
 
@@ -95,6 +98,7 @@ const server = Object.assign({
 module.exports = {
 	compressCSS,
 	compressJS,
+	cssDir,
 	cssSyntax,
 	jsModuleFormat,
 	jsModuleName,
