@@ -163,7 +163,8 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 				require('postcss-replace-overflow-wrap')(),
 				require('postcss-easings')(),
 				require('postcss-short')(),
-				require('postcss-svg')()
+				require('postcss-svg')(),
+				require('autoprefixer')()
 			].concat(
 				opts.compressCSS ? [
 					require('cssnano')(opts.compressCSS),
