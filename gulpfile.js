@@ -167,7 +167,9 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 				require('autoprefixer')()
 			].concat(
 				opts.compressCSS ? [
-					require('cssnano')(opts.compressCSS),
+					require('cssnano')({
+						preset: ['default', opts.compressCSS]
+					}),
 					require('./lib/postcss-discard-tested-duplicate-declarations')()
 				 ] : []
 			),
