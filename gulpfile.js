@@ -136,7 +136,9 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 		postcss(
 			[
 				require('postcss-partial-import')(),
-				require('postcss-custom-properties')(),
+				require('postcss-custom-properties')({
+					warnings: false
+				}),
 				require('postcss-apply')(),
 				require('postcss-image-set-polyfill')(),
 				require('postcss-nesting')(),
