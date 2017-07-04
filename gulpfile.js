@@ -5,6 +5,7 @@ const eslit = require('gulp-eslit');
 const exec = require('child_process').exec;
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
+const path = require('path');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
 const rollup = require('rollup-stream');
@@ -48,7 +49,7 @@ gulp.task('dist:html', () => opts.paths.html ? gulp.src(
 ).pipe(
 	eslit(opts.eslitConfig)
 ).pipe(
-	rename(opts.htmlDest)
+	rename((pathdata) => renamer(pathdata, opts.htmlDest))
 ).pipe(
 	gulp.dest(opts.server.root)
 ).pipe(
@@ -108,7 +109,7 @@ gulp.task('dist:js', () => opts.paths.js ? rollup(
 		loadMaps: true
 	})
 ).pipe(
-	rename(opts.jsDest)
+	rename((pathdata) => renamer(pathdata, opts.jsDest))
 ).pipe(
 	size({
 		gzip: true,
@@ -190,7 +191,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 		sass(opts.compressCSS ? opts.compressCSS.sass : {}).on('error', sass.logError)
 	)
 ).pipe(
-	rename(opts.cssDest)
+	rename((pathdata) => renamer(pathdata, opts.cssDest))
 ).pipe(
 	size({
 		gzip: true,
@@ -232,3 +233,33 @@ gulp.task('host', ['live'], (cb) => {
 /* ========================================================================== */
 
 gulp.task('default', ['host']);
+
+/* Renamer (renames a destination file)
+/* ========================================================================== */
+
+function renamer(pathdata, dest) {
+	const basepath = `${pathdata.basename}${pathdata.extname}`;
+
+	if (dest === Object(dest) && basepath in dest) {
+		const newpathdata = path.parse(dest[basepath]);
+
+		pathdata.basename = newpathdata.name;
+		pathdata.extname = newpathdata.ext;
+	} else if (dest instanceof Array) {
+		const newpathindex = opts.paths.css.indexOf(
+			path.resolve(pathdata.dirname, basepath)
+		);
+
+		if (newpathindex !== -1) {
+			const newpathdata = path.parse(dest[newpathindex]);
+
+			pathdata.basename = newpathdata.name;
+			pathdata.extname = newpathdata.ext;
+		}
+	} else if (typeof dest === 'string') {
+		const newpathdata = path.parse(dest);
+
+		pathdata.basename = newpathdata.name;
+		pathdata.extname = newpathdata.ext;
+	}
+}

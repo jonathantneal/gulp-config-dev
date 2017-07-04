@@ -4,10 +4,7 @@ const path = require('path');
 
 // package, gulp configuration
 const pkg = require(
-	path.resolve(
-		cwd,
-		'package.json'
-	)
+	resolver('package.json')
 );
 const cfg = pkg.gulpConfig || {};
 
@@ -18,11 +15,25 @@ const pathCSS   = cfg.css   !== undefined ? cfg.css   : pkg.style;
 const pathFiles = cfg.files !== undefined ? cfg.files : 'placeholders';
 
 const paths = {
-	html:  pathHTML  === false ? pathHTML  : pathHTML  instanceof Array ? pathHTML.map(resolve)  : path.resolve(cwd, pathHTML  || `${ pkg.name }.html`),
-	js:    pathJS    === false ? pathJS    : pathJS    instanceof Array ? pathJS.map(resolve)    : path.resolve(cwd, pathJS    || `${ pkg.name }.js`),
-	css:   pathCSS   === false ? pathCSS   : pathCSS   instanceof Array ? pathCSS.map(resolve)   : path.resolve(cwd, pathCSS   || `${ pkg.name }.css`),
-	files: pathFiles === false ? pathFiles : pathFiles instanceof Array ? pathFiles.map(resolve) : path.resolve(cwd, pathFiles || 'placeholders')
+	html:  getpath(pathHTML,  `${ pkg.name }.html`),
+	js:    getpath(pathJS,    `${ pkg.name }.js`),
+	css:   getpath(pathCSS,   `${ pkg.name }.css`),
+	files: getpath(pathFiles, 'placeholders')
 };
+
+function getpath(pathdata, fallback) {
+	if (false === pathdata) {
+		return false;
+	} else if (pathdata instanceof Array) {
+		return pathdata.map(resolver);
+	} else if (pathdata === Object(pathdata)) {
+		return Object.keys(pathdata).map(
+			(key) => resolver(key)
+		);
+	} else {
+		return resolver(pathdata || fallback);
+	}
+}
 
 // whether sass or css are used
 const useSass    = cfg['use-sass']    === false ? false : true; // eslint-disable-line no-unneeded-ternary
@@ -75,9 +86,9 @@ const watch = {
 };
 
 // destinations
-const htmlDest = 'html-dest' in cfg ? cfg['html-dest'] : 'index.html';
-const cssDest  = 'css-dest' in cfg  ? cfg['css-dest']  : 'index.css';
-const jsDest   = 'js-dest' in cfg   ? cfg['js-dest']   : 'index.js';
+const htmlDest = getdest('html-dest', 'index.html', pathHTML);
+const cssDest  = getdest('css-dest',  'index.css',  pathCSS);
+const jsDest   = getdest('js-dest',   'index.js',   pathJS);
 
 // more configs
 const eslitConfig   = Object.assign({}, cfg.eslitConfig);
@@ -114,6 +125,21 @@ module.exports = {
 	rollupConfig
 };
 
-function resolve(each) {
+/* Get Destination (from cfg)
+/* ========================================================================== */
+
+function getdest(key, fallback, pathdata) {
+	const isArray  = Array.isArray(cfg[key]);
+	const isObject = !Array.isArray(pathdata) && pathdata === Object(pathdata);
+
+	return isObject ? Object.keys(pathdata).map(
+		(pathkey) => resolver(pathdata[pathkey])
+	) : isArray ? cfg[key].map(resolver) : key in cfg ? cfg[key] : fallback;
+}
+
+/* Resolver (from cwd)
+/* ========================================================================== */
+
+function resolver(each) {
 	return path.resolve(cwd, each);
 }
