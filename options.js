@@ -18,10 +18,10 @@ const pathCSS   = cfg.css   !== undefined ? cfg.css   : pkg.style;
 const pathFiles = cfg.files !== undefined ? cfg.files : 'placeholders';
 
 const paths = {
-	html:  pathHTML  === false ? pathHTML  : path.resolve(cwd, pathHTML  || `${ pkg.name }.html`),
-	js:    pathJS    === false ? pathJS    : path.resolve(cwd, pathJS    || `${ pkg.name }.js`),
-	css:   pathCSS   === false ? pathCSS   : path.resolve(cwd, pathCSS   || `${ pkg.name }.css`),
-	files: pathFiles === false ? pathFiles : path.resolve(cwd, pathFiles || 'placeholders')
+	html:  pathHTML  === false ? pathHTML  : pathHTML  instanceof Array ? pathHTML.map(resolve)  : path.resolve(cwd, pathHTML  || `${ pkg.name }.html`),
+	js:    pathJS    === false ? pathJS    : pathJS    instanceof Array ? pathJS.map(resolve)    : path.resolve(cwd, pathJS    || `${ pkg.name }.js`),
+	css:   pathCSS   === false ? pathCSS   : pathCSS   instanceof Array ? pathCSS.map(resolve)   : path.resolve(cwd, pathCSS   || `${ pkg.name }.css`),
+	files: pathFiles === false ? pathFiles : pathFiles instanceof Array ? pathFiles.map(resolve) : path.resolve(cwd, pathFiles || 'placeholders')
 };
 
 // whether sass or css are used
@@ -113,3 +113,7 @@ module.exports = {
 	postcssConfig,
 	rollupConfig
 };
+
+function resolve(each) {
+	return path.resolve(cwd, each);
+}
