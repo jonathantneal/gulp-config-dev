@@ -52,6 +52,7 @@
     "postcss-font-variant": "^3.0.0",
     "postcss-image-set-polyfill": "^0.4.3",
     "postcss-initial": "^2.0.0",
+    "postcss-media-fn": "^3.0.0",
     "postcss-media-minmax": "^3.0.0",
     "postcss-nesting": "^4.0.1",
     "postcss-partial-import": "^4.1.0",

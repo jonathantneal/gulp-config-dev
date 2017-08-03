@@ -145,6 +145,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 				require('postcss-nesting')(),
 				require('postcss-custom-media')(),
 				require('postcss-media-minmax')(),
+				require('postcss-media-fn')(),
 				require('postcss-custom-selectors')(),
 				require('postcss-attribute-case-insensitive')(),
 				require('postcss-color-rebeccapurple')(),
