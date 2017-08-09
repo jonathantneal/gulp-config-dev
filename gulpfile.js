@@ -142,6 +142,7 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 				}),
 				require('postcss-apply')(),
 				require('postcss-image-set-polyfill')(),
+				require('postcss-logical')(),
 				require('postcss-nesting')(),
 				require('postcss-media-fn')(),
 				require('postcss-custom-media')(),
