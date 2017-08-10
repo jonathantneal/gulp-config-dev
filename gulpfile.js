@@ -65,63 +65,65 @@ gulp.task('dist:html', () => opts.paths.html ? gulp.src(
 /* Dist:JS (copies js saturated with rollup to dist)
 /* ========================================================================== */
 
-gulp.task('dist:js', () => opts.paths.js ? rollup(
-	Object.assign(
-		{
-			entry: opts.paths.js,
-			format: opts.jsModuleFormat,
-			moduleName: opts.jsModuleName,
-			sourceMap: true
-		},
-		opts.rollupConfig,
-		{
-			plugins: [
-				require('rollup-plugin-json')(),
-				require('rollup-plugin-node-resolve')(),
-				require('rollup-plugin-commonjs')({
-					include: 'node_modules/**'
-				}),
-				require('rollup-plugin-babel')({
-					babelrc: false,
-					plugins: [
-						require('babel-plugin-external-helpers')
-					],
-					presets: [
-						[
-							require('babel-preset-env'),
-							{
-								modules: false
-							}
+gulp.task('dist:js', () => opts.paths.js ? [].concat(opts.paths.js).map(
+	(jsPath, index) => rollup(
+		Object.assign(
+			{
+				entry: jsPath,
+				format: opts.jsModuleFormat,
+				moduleName: opts.jsModuleName,
+				sourceMap: true
+			},
+			opts.rollupConfig,
+			{
+				plugins: [
+					require('rollup-plugin-json')(),
+					require('rollup-plugin-node-resolve')(),
+					require('rollup-plugin-commonjs')({
+						include: 'node_modules/**'
+					}),
+					require('rollup-plugin-babel')({
+						babelrc: false,
+						plugins: [
+							require('babel-plugin-external-helpers')
+						],
+						presets: [
+							[
+								require('babel-preset-env'),
+								{
+									modules: false
+								}
+							]
 						]
-					]
-				})
-			].concat(
-				opts.compressJS ? require('rollup-plugin-uglify')(opts.compressJS) : []
-			)
-		}
+					})
+				].concat(
+					opts.compressJS ? require('rollup-plugin-uglify')(opts.compressJS) : []
+				)
+			}
+		)
+	).pipe(
+		source(jsPath)
+	).pipe(
+		buffer()
+	).pipe(
+		sourcemaps.init({
+			loadMaps: true
+		})
+	).pipe(
+		rename((pathdata) => renamer(pathdata, Array.isArray(opts.jsDest) ? opts.jsDest[index] : opts.jsDest))
+	).pipe(
+		size({
+			gzip: true,
+			showFiles: true,
+			title: 'Size of:'
+		})
+	).pipe(
+		sourcemaps.write('.')
+	).pipe(
+		gulp.dest(opts.server.root)
+	).pipe(
+		connect.reload()
 	)
-).pipe(
-	source(opts.paths.js)
-).pipe(
-	buffer()
-).pipe(
-	sourcemaps.init({
-		loadMaps: true
-	})
-).pipe(
-	rename((pathdata) => renamer(pathdata, opts.jsDest))
-).pipe(
-	size({
-		gzip: true,
-		showFiles: true,
-		title: 'Size of:'
-	})
-).pipe(
-	sourcemaps.write('.')
-).pipe(
-	gulp.dest(opts.server.root)
-).pipe(
-	connect.reload()
 ) : []);
 
 /* Dist:CSS (copies css saturated with postcss and sass to dist)
