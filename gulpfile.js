@@ -162,9 +162,9 @@ gulp.task('dist:css', () => opts.paths.css ? gulp.src(
 				require('postcss-selector-matches')(),
 				require('postcss-selector-not')(),
 				require('postcss-pseudo-class-any-link')(),
-				require('postcss-dir-pseudo-class')({
+				require('postcss-dir-pseudo-class')(opts.cssDir ? {
 					dir: opts.cssDir
-				}),
+				} : {}),
 				require('postcss-replace-overflow-wrap')(),
 				require('postcss-easings')(),
 				require('postcss-short')(),

@@ -55,7 +55,7 @@ const compressCSS = cfg['compress-css'] === false ? false : Object.assign({
 const compressJS  = cfg['compress-js']  === false ? false : Object.assign({}, cfg['compress-js']);
 
 // css direction
-const cssDir = 'css-dir' in cfg ? cfg['css-dir'] : 'ltr';
+const cssDir = 'css-dir' in cfg ? cfg['css-dir'] : false;
 
 // css syntax
 const cssSyntax = 'css-syntax' in cfg ? cfg['css-syntax'] : 'scss';
