@@ -1,6 +1,6 @@
 {
   "name": "gulp-config-dev",
-  "version": "3.13.0",
+  "version": "3.13.1",
   "description": "A shareable configuration package of dependencies for gulp",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -52,7 +52,7 @@
     "postcss-font-variant": "^3.0.0",
     "postcss-image-set-polyfill": "^0.4.3",
     "postcss-initial": "^2.0.0",
-    "postcss-logical": "^1.0.0",
+    "postcss-logical": "^1.0.2",
     "postcss-media-fn": "^3.0.0",
     "postcss-media-minmax": "^3.0.0",
     "postcss-nesting": "^4.0.1",
